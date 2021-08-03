@@ -24,7 +24,7 @@ from torchaudio.datasets.utils import (download_url, extract_archive, )
 _RELEASE_CONFIGS = {
     "release1": {
         "folder_in_archive": "data/",
-        "url": "doit@prince:~/Pictures/10Academy/Week4/cloned/Swahili-Speech-To-Text",
+        "url": "doit@prince:~/Pictures/10Academy/Week4/cloned/Swahili-Speech-To-Text/",
         # "checksum": "30301975fd8c5cac4040c261c0852f57cfa8adbbad2ce78e77e4986957445f27",
     }
 }
@@ -40,7 +40,7 @@ class Dataloader(Dataset):
         download: bool = False,
         test: bool = False
     ) -> None:
-        self._walker = ''
+        self._walker = []
         self.test = test
         self._parse_filesystem(root, url, folder_in_archive, download)
 
