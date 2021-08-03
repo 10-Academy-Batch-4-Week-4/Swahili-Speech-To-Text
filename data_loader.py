@@ -72,13 +72,16 @@ class Dataloader(Dataset):
         # Perform transformation
         spec = self.mel_spectrogram(waveform)
         spec = torchaudio.transforms.AmplitudeToDB()(spec)
-        # print(spec.shape)
-        padd = torch.zeros(129, 700)  # To be checked
-        # To be checked...................?
-        if padd.shape[-1] != spec.shape[-1]:
+        # To be checked..................
+        padd = torch.zeros(1,128,128)
+        if padd.shape[-1] < spec.shape[-1]:
+            indices = torch.arange(0, 128)
+            padd = torch.index_select(spec, 2, indices)
+        else:
             indices = torch.arange(0, spec.shape[-1])
-            padd.index_copy_(1, indices, spec)
-            return padd, int('1')
+            padd.index_copy_(2, indices,spec)
+
+        return padd, 1
 
         return spec, int('1')
 
@@ -90,11 +93,10 @@ class Dataloader(Dataset):
     def __len__(self) -> int:
         return len(self._walker)
 
-
-dataset_train = Dataloader('data/train/SWH-05-20101106/')
-dataset_test = Dataloader('data/test/SWH-05-20101124/')
-print(f'length of train data: {dataset_train.__len__()}')
-print(f'length of train data: {dataset_test.__len__()}')
-f = dataset_train._walker
-# for i in f:
-#     print(i)
+# dataset_train = Dataloader('data/train/SWH-05-20101106/')
+# dataset_test = Dataloader('data/test/SWH-05-20101124/')
+# print(f'length of train data: {dataset_train.__len__()}')
+# print(f'length of train data: {dataset_test.__len__()}')
+# f = dataset_train._walker
+# # for i in f:
+# #     print(i)
