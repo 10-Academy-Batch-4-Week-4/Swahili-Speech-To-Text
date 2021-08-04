@@ -8,7 +8,7 @@ assistants work for limited languages only.
 
 
 # Data
-● Dataset for Swahili [here] (https://github.com/getalp/ALFFA_PUBLIC)
+● Dataset for Swahili [here](https://github.com/getalp/ALFFA_PUBLIC)
 
 #  Data pre-processing
     - Load audio file
