@@ -8,8 +8,8 @@ assistants work for limited languages only.
 
 
 # Data
-● Dataset for Amharic here
-● Dataset for Swahili here
+● Dataset for Swahili(https://github.com/getalp/ALFFA_PUBLIC)
+
 #  Data pre-processing
     - Load audio file
     - Load transcriptions
