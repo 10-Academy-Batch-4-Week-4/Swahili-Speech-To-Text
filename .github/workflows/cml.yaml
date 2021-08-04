@@ -11,7 +11,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Your ML workflow goes here
-          pip install -r requirements.txt
+          pip install -r requirements.txt 
           
           
-          echo "## This will be our MLOps MLflow CML integration" 
+          # echo "## This will be our MLOps MLflow CML integration" > report.md
