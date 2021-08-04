@@ -2,7 +2,7 @@ import pandas as pd
 import librosa
 def channels_check(data:pd.DataFrame,col:str):
   chan=[]
-  for i in df['audio']:
+  for i in data[col]:
     sig, sr = librosa.load(i)
     sig_shape=sig.shape[0]
     chan.append(sig_shape)
