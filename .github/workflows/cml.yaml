@@ -1,4 +1,4 @@
-name:Swahili Speech-To-Text
+name: Swahili Speech-To-Text
 on: [push]
 jobs:
   run:
