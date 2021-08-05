@@ -2,7 +2,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 import pandas as pd
-
+#methods for ploting
 def plot_outliers(df: pd.DataFrame, labels, typeOfPlot=0):
     if typeOfPlot in [0, 2]:
         plt.figure(figsize=(7,7))
