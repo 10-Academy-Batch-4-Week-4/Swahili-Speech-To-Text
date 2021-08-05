@@ -1,5 +1,17 @@
-import librosa 
+import sklearn
+import librosa
+import librosa.display
 import matplotlib.pyplot as plt
+
+def mfcc(samples, sample_rate):
+    mfcc = librosa.feature.mfcc(samples, sr=sample_rate)
+    # Center MFCC coefficient dimensions to the mean and unit variance
+    mfcc = sklearn.preprocessing.scale(mfcc, axis=1)
+    
+    print (f'MFCC is of type {type(mfcc)} with shape {mfcc.shape}')
+    # MFCC is of type <class 'numpy.ndarray'> with shape (, )
+    return mfcc
+
 
 def mel_scale(samples):
   sgram = librosa.stft(samples)   
@@ -15,8 +27,4 @@ def mel_scale(samples):
   mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
   #Convert an amplitude spectrogram to dB-scaled spectrogram.
 
-  librosa.display.specshow(mel_sgram, sr=sample_rate, x_axis='time', y_axis='mel')
-  #Display a spectrogram
-
-  plt.colorbar(format='%+2.0f dB')
   return mel_sgram
