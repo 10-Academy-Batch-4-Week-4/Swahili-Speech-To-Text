@@ -1,11 +1,11 @@
 import random
 import torch
-"""
-Takes the audio file and maximum length
-returns the resized of the Audio wth the given length.
-"""
+
+# ----------------------------
+# Pad (or truncate) the signal to a fixed length 'max_ms' in milliseconds
+# ----------------------------
 def pad_trunc(aud, max_ms):
-    sig, sr = aud
+    sig, sr = openf(aud)
     num_rows, sig_len = sig.shape
     max_len = sr//1000 * max_ms
 
@@ -27,7 +27,7 @@ def pad_trunc(aud, max_ms):
     return (sig, sr)
 
 """
-We can also use below one if we want to resize after we chane the Audio file
+We can also use below one if we want to resize after we change the Audio file
 to spectrogram/mel-spectrogram
 """
 
