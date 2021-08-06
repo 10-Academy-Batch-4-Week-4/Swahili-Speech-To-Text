@@ -1,11 +1,21 @@
+import glob
+from pathlib import Path
 import random
 import torch
+import torchaudio
+
+#   # ----------------------------
+#   # Load an audio file. Return the signal as a tensor and the sample rate
+#   # ----------------------------
+def openfile(audio_file):
+    sig, sr = torchaudio.load(audio_file)
+    return (sig, sr)
 
 # ----------------------------
 # Pad (or truncate) the signal to a fixed length 'max_ms' in milliseconds
 # ----------------------------
 def pad_trunc(aud, max_ms):
-    sig, sr = openf(aud)
+    sig, sr = openfile(aud)
     num_rows, sig_len = sig.shape
     max_len = sr//1000 * max_ms
 
@@ -25,6 +35,11 @@ def pad_trunc(aud, max_ms):
         sig = torch.cat((pad_begin, sig, pad_end), 1)
 
     return (sig, sr)
+
+# Access each file recursively 
+for path in Path('/content/drive/MyDrive/SWAHILI/data/train/wav').rglob('*.wav'):
+    file = path.name
+    sig, sr = pad_trunc(file, 6050)
 
 """
 We can also use below one if we want to resize after we change the Audio file
