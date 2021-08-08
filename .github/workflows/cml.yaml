@@ -8,7 +8,12 @@ jobs:
       - uses: actions/setup-python@v2
       - uses: iterative/setup-cml@v1
       - name: Train model
+        run: |
+          pip install -r requirements.txt
+      - name: Write CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip install -r requirements.txt
+          touch 'push_log.txt'
+          echo $(date) codebase updated >> push_log.txt
+          cml-send-comment push_log.txt
