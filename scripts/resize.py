@@ -58,3 +58,7 @@ to spectrogram/mel-spectrogram
 #     return padd
 
 #     return spec
+
+# def resize_(signal, max_length): 
+#     signal = np.pad(signal, (0, max_length-len(signal)), mode = 'constant')
+#     return torch.tensor(signal)
