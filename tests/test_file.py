@@ -23,13 +23,11 @@ class testSwahlli():
 
     def feature_extraction_(self):
         s = mel_scale(audio)
-        assert type(
-            s) == np.ndarray, f"Function should return the value {np.ndarray}, it is returning the value {type(s)}"
+        assert type(s) == np.ndarray, f"Function should return the value {np.ndarray}, it is returning the value {type(s)}"
 
     def channel_(self, data: pd.DataFrame, col: str):
         ch = channels_check(data: pd.DataFrame, col: str)
-        assert set(ch) == {
-            1, 2}, f"Function should return the value {[1, 2]}, it is returning the value {ch}"
+        assert set(ch) == {1, 2}, f"Function should return the value {[1, 2]}, it is returning the value {ch}"
 
     def data_augimentation_(self):
         sh = time_shift(audio, shift)
