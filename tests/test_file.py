@@ -3,47 +3,58 @@ import torch
 import torchaudio
 import numpy as np
 import pandas as pd
-import os
+import glob
+from pathlib import Path
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import unittest
+import sys, os
+sys.path.append(os.path.abspath(os.path.join('..')))
 
 from scripts.channel import channels_check
 from scripts.Feature_extraction import mel_scale
 from scripts.data_augmentation import time_shift
-from scripts.load_text import loading
+from scripts.load_text import chchannels_check
 from scripts.resize import resize_
 
-file = "../SWH-05-20101106/SWH-05-20101106_16k-emission_swahili_05h30_-_06h00_tu_20101106_part2.wav"
-#files = os.listdir(parent_dir)
-audio, fs = librosa.load(file)
-meta_df = pd.read_csv('../metadata.csv')
+files = []
+for path in Path('../SWH-05-20101106').glob('*.wav'):
+    files.append('../SWH-05-20101106/'+path.name)
 
+audio, fs = librosa.load(files[0])
 
-class testSwahlli():
-    def __init__(self):
-        pass
+#meta_df = pd.read_csv('../metadata.csv')
+import unittest
 
-    def feature_extraction_(self):
-        s = mel_scale(audio)
-        assert type(s) == np.ndarray, f"Function should return the value {np.ndarray}, it is returning the value {type(s)}"
+class testSwahlli(unittest.TestCase):
 
-    def channel_(self, data: pd.DataFrame, col: str):
-        ch = channels_check(data: pd.DataFrame, col: str)
-        assert set(ch) == {1, 2}, f"Function should return the value {[1, 2]}, it is returning the value {ch}"
+    def Feature_extraction_(self):
+        s = mel_scale(audio, 1600)
+        assert type(s) == np.ndarray, \
+        f"Function should return the value {np.ndarray}, it is returning the value {type(s)}"
+
+    def channel_(self):
+        ch = channels_check(files)
+        assert {list(ch)} in [[1],[1,2], [2]],\
+        f"Function should return the an element of  {[[1],[1,2], [2]]}, it is returning {list(ch)}"
 
     def data_augimentation_(self):
-        sh = time_shift(audio, shift)
-        assert int(sh.shape[1]) == (int(data.shape[1]) + shift), \
-            f"Function should return the value {(int(np.shape(data)) + shift)}, it is returning the value {int(sh.shape[1])}"
+            sh = time_shift(audio, 1)
+            assert len(sh) == (len(audio)), \
+            f"Function should return the value {len(audio)}, it is returning the value {len(sh)}"
 
-    def load_text_(self):
-        txt = 'rais wa tanzania jakaya mrisho kikwete'
-        t = loading(text_path)
-        assert t.iloc[0] == txt, f"Function should return the value {txt}, it is returning the value {t}"
+    # def load_text_(self):
+    #     txt = 'rais wa tanzania jakaya mrisho kikwete'
+    #     t = loading(text_path)
+    #     assert t.iloc[0] == txt, f"Function should return the value {txt}, it is returning the value {t}"
 
-    def resize(self):
-        re = resize_(audio, max_length)
-        assert int(re.shape[1]) == (int(signal.shape[1]) + max_length), \
-            f"Function should return the value {(int(signal.shape[1]) + max_length)}, it is returning the value {int(re.shape[1])}"
-
+    def resize_(self):
+        re = resize_(audio, 100000)
+        print('yeah')
+        assert len(re) == (100000), \
+        f"Function should return the value {100000}, it is returning the value {len(re)}"
 
 if __name__ == '__main__':
-	testSwahlli.main()
+    unittest.main()
