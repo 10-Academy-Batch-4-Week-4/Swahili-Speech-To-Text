@@ -13,18 +13,25 @@ def mfcc(samples, sample_rate):
     return mfcc
 
 
-def mel_scale(samples):
-  sgram = librosa.stft(samples)   
-  #The STFT represents a signal in the time-frequency domain by computing discrete Fourier transforms (DFT) over short overlapping windows.
-  #This function returns a complex-valued matrix D
+# def mel_scale(samples):
+#   sgram = librosa.stft(samples)   
+#   #The STFT represents a signal in the time-frequency domain by computing discrete Fourier transforms (DFT) over short overlapping windows.
+#   #This function returns a complex-valued matrix D
 
-  sgram_mag, _ = librosa.magphase(sgram)
-  #Separate a complex-valued spectrogram D into its magnitude (S) and phase (P) components, so that D = S * P
+#   sgram_mag, _ = librosa.magphase(sgram)
+#   #Separate a complex-valued spectrogram D into its magnitude (S) and phase (P) components, so that D = S * P
 
-  mel_scale_sgram = librosa.feature.melspectrogram(S=sgram_mag, sr=sample_rate)
-  #Compute a mel-scaled spectrogram.
+#   mel_scale_sgram = librosa.feature.melspectrogram(S=sgram_mag, sr=sample_rate)
+#   #Compute a mel-scaled spectrogram.
 
-  mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
-  #Convert an amplitude spectrogram to dB-scaled spectrogram.
+#   mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
+#   #Convert an amplitude spectrogram to dB-scaled spectrogram.
 
-  return mel_sgram
+#   return mel_sgram
+
+def mel_scale(samples, sample_rate):
+    sgram = librosa.stft(samples)   
+    sgram_mag, _ = librosa.magphase(sgram)
+    mel_scale_sgram = librosa.feature.melspectrogram(S=sgram_mag, sr=sample_rate)
+    mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
+    return mel_sgram
