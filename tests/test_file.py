@@ -15,18 +15,21 @@ file = "../SWH-05-20101106/SWH-05-20101106_16k-emission_swahili_05h30_-_06h00_tu
 #files = os.listdir(parent_dir)
 audio, fs = librosa.load(file)
 meta_df = pd.read_csv('../metadata.csv')
+
+
 class testSwahlli():
     def __init__(self):
         pass
 
-    def feature_extraction_(self): 
+    def feature_extraction_(self):
         s = mel_scale(audio)
-        assert type(s) == np.ndarray, f"Function should return the value {np.ndarray}, it is returning the value {type(s)}"
+        assert type(
+            s) == np.ndarray, f"Function should return the value {np.ndarray}, it is returning the value {type(s)}"
 
-
-    def channel_(self, data:pd.DataFrame, col:str):
-        ch = channels_check(data:pd.DataFrame, col:str)
-        assert set(ch) == {1, 2}, f"Function should return the value {[1, 2]}, it is returning the value {ch}"
+    def channel_(self, data: pd.DataFrame, col: str):
+        ch = channels_check(data: pd.DataFrame, col: str)
+        assert set(ch) == {
+            1, 2}, f"Function should return the value {[1, 2]}, it is returning the value {ch}"
 
     def data_augimentation_(self):
         sh = time_shift(audio, shift)
@@ -42,3 +45,7 @@ class testSwahlli():
         re = resize_(audio, max_length)
         assert int(re.shape[1]) == (int(signal.shape[1]) + max_length), \
             f"Function should return the value {(int(signal.shape[1]) + max_length)}, it is returning the value {int(re.shape[1])}"
+
+
+if __name__ == '__main__':
+	testSwahlli.main()
