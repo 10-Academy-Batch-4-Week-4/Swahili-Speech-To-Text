@@ -1,28 +1,27 @@
 import librosa
-import torch
-import torchaudio
 import numpy as np
 import pandas as pd
 import glob
 from pathlib import Path
+import unittest
+import sys
 
 import warnings
 warnings.filterwarnings("ignore")
 
-import unittest
-import sys, os
-sys.path.append(os.path.abspath(os.path.join('..')))
+
+sys.path.append("../scripts/")
 
 from scripts.channel import channels_check
 from scripts.Feature_extraction import mel_scale
 from scripts.data_augmentation import time_shift
-from scripts.load_text import chchannels_check
+from scripts.load_text import loading
 from scripts.resize import resize_
 
 files = []
-for path in Path('../SWH-05-20101106').glob('*.wav'):
-    files.append('../SWH-05-20101106/'+path.name)
-
+for path in Path('./SWH-05-20101106').glob('*.wav'):
+    files.append('./SWH-05-20101106/'+path.name)
+    
 audio, fs = librosa.load(files[0])
 
 #meta_df = pd.read_csv('../metadata.csv')
